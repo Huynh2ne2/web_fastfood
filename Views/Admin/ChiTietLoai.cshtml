@@ -1,0 +1,28 @@
+﻿@model DOANLTW.Models.Loai
+
+@{
+    ViewBag.Title = "ChiTietLoai";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+    <div style="text-align: center;">
+        <h2 style="font-weight: bold;">Chi tiết loại</h2>
+    </div>
+
+    <div style="background-color: #f4f4f4; padding: 20px; margin: 20px 0;">
+        <h4 style="font-weight: bold;">Loại</h4>
+        <hr />
+        <dl style="padding: 10px 0;">
+            <dt style="font-weight: bold; color: #1E90FF;">Mã loại:</dt>
+            <dd>@Html.DisplayFor(model => model.MaLoai)</dd>
+        </dl>
+        <dl style="padding: 10px 0;">
+            <dt style="font-weight: bold; color: #1E90FF;">Tên loại:</dt>
+            <dd>@Html.DisplayFor(model => model.TenLoai)</dd>
+        </dl>
+    </div>
+
+    <div style="text-align: center; margin-top: 20px;">
+        <a href="@Url.Action("Loai", "Admin")" class="btn btn-secondary"><i class="fa fa-arrow-left"></i> Trở lại</a>
+        <a href="@Url.Action("SuaLoai", "Admin", new { id = Model.MaLoai })" class="btn btn-primary"><i class="fa fa-edit"></i> Chỉnh sửa</a>
+    </div>

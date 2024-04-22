@@ -1,0 +1,231 @@
+﻿@model IEnumerable<DOANLTW.Models.Loai>
+
+@{
+    ViewBag.Title = "Loai";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Loai</h2>
+<p> @Html.ActionLink("Create New", "Create")</p>
+<button type="button" id="btnGetLoai">
+    Danh sách Loại
+</button>
+<table class="table table-bordered loaiTable">
+    <tr>
+        <th> Ma Loai</th>
+        <th> Ten Loai</th>
+    </tr>
+
+    @*@foreach (var item in Model) {
+            <tr>
+                <td> @Html.DisplayFor(modelItem => item.MaLoai) </td>
+                <td> @Html.DisplayFor(modelItem => item.TenLoai) </td>
+            </tr>
+        }*@
+</table>
+btnDelete
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">View Loai</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <tr>
+                        <td>Ma Loai</td>
+                        <td>
+                            <span id="IDLoaiSpan"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Ten Loai</td>
+                        <td>
+                            <span id="TenLoaiSpan"></span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+@* Thêm và sửa *@
+<div class="card-group">
+    <div class="card">
+        <div class="card-header">Create New Category</div>
+        <div class="card-body">
+            <form>
+                <div class="col-12">
+                    <label for="TenLoai">Tên Loại</label>
+                    <input type="text" class="form-control" placeholder="Ten Loai" id="txtTenLoai" />
+                </div>
+            </form>
+        </div>
+        <div class="card-footer">
+            <button type="button" id="btnInsert" class="btn btn-info">
+                Save
+            </button>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">Update Category</div>
+        <div class="card-body">
+            <form>
+                <div class="col-12">
+                    <label for="MaLoai">Mã Loại</label>
+                    <input type="text" class="form-control" placeholder="Ma Loai" id="txtMaLoaiUpdate" disabled="disabled" />
+                </div>
+                <div class="col-12">
+                    <label for="TenLoai">Tên Loại</label>
+                    <input type="text" class="form-control" placeholder="Ten Loai" id="txtTenLoaiUpdate" />
+                </div>
+            </form>
+        </div>
+        <div class="card-footer">
+            <button type="button" id="btnUpdate" class="btn btn-info">
+                Update
+            </button>
+        </div>
+    </div>
+</div>
+
+@* xóa *@
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">View Loai</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h5>Are you sure  ????</h5>
+                <table class="table">
+                    <tr>
+                        <td>Ma Loai</td>
+                        <td>
+                            <span id="DeleteIDLoaiSpan"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Ten Loai</td>
+                        <td>
+                            <span id="DeleteTenLoaiSpan"></span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="btnDelete">Delete</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $('#btnGetLoai').click(() => {
+        $('.loaiTable').empty();
+        $('.loaiTable').append('<tr><th>Ma Loai</th><th>Ten Loai</th><td></td></tr>');
+        $.ajax({
+            type: 'GET',
+            url: '/api/Loai',
+            success: (responses) => {
+                for (var i = 0; i <= responses.length; i++) {
+                    const loaiRow = resonses[i];
+                    const strHTML = '<tr><td>' + loaiRow.MaLoai + '</td><td>' + loaiRow.TenLoai + '</td><td><button type="button" class="btn btn-primary btnViewLoai" data-bs-toggle="modal" data-bs-target="#exampleModal" data-maloai= "' + loaiRow.MaLoai + '">View</button> <button type="button" class="btn btn-primary btnUpdateLoai" data-maloai= "' + loaiRow.MaLoai + '">Edit</button>  <button type="button" class="btn btn-danger btnDeleteLoai" data-bs-toggle="modal" data-bs-target="#deleteModal" data-maloai= "' + loaiRow.MaLoai + '">Delete</button></td></tr>';
+                    $('.loaiTable').append(strHTML);
+                }
+            },
+            error: (err) => { console.log(err); }
+        });
+    });
+
+    $(document).on('click', '.btnViewLoai', (event) => {
+        const loaiid = $(event.target).attr('data-maloai');
+        $.ajax({
+            type: 'GET',
+            url: '/api/Loai?id=${loaiid}',
+            success: (responses) => {
+                $('#IDLoaiSpan').html(responses.MaLoai);
+                $('#TenLoaiSpan').html(responses.TenLoai);
+            },
+            error: (err) => { console.log(err); }
+
+        });
+
+    });
+
+    $('#btnInsert').click(() => {
+        const tenLoai = $('#txtTenLoai').val();
+        $.ajax({
+            type: 'POST',
+            url: '/api/Loai',
+            data: { 'TenLoai': tenLoai },
+            success: () => {
+                $('#btnGetLoai').trigger('click');
+            },
+            error: (err) => { console.log(err); }
+        });
+    });
+
+    $(document).on('click', '.btnUpdateLoai', (event) => {
+        const loaiid = $(event.target).attr('data-maloai');
+        $.ajax({
+            type: 'GET',
+            url: '/api/Loai?id=${loaiid}',
+            success: (responses) => {
+                $('#txtMaLoaiUpdate').val(responses.MaLoai);
+                $('#txtTenLoaiUpdate').val(responses.TenLoai);
+            },
+            error: (err) => { console.log(err); }
+
+        });
+
+    });
+
+    $('#btnUpdate').click(() => {
+        const maLoai = $('#txtMaLoaiUpdate').val();
+        const tenLoai = $('#txtTenLoaiUpdate').val();
+        $.ajax({
+            type: 'PUT',
+            url: '/api/Loai',
+            data: { 'MaLoai': maLoai, 'TenLoai': tenLoai },
+            success: () => {
+                $('#btnGetLoai').trigger('click');
+            },
+            error: (err) => { console.log(err); }
+        });
+    }); 
+
+    $(document).on('click', '.btnDeleteLoai', (event) => {
+        const loaiid = $(event.target).attr('data-maloai');
+        $.ajax({
+            type: 'GET',
+            url: '/api/Loai?id=${loaiid}',
+            success: (responses) => {
+                $('#DeleteIDLoaiSpan').val(responses.MaLoai);
+                $('#DeleteTenLoaiSpan').val(responses.TenLoai);
+            },
+            error: (err) => { console.log(err); }
+
+        });
+
+    });
+
+    $('#btnDelete').click(() => {
+        const maLoai = $('#DeleteIDLoaiSpan').html();
+        $.ajax({
+            type: 'DELETE',
+            url: '/api/Loai?id=${maLoai}',
+            success: () => {
+                $('#btnGetLoai').trigger('click');
+            },
+            error: (err) => { console.log(err); }
+        });
+    });
+</script>

@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "DangNhap";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row justify-content-md-start">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                Wellcome
+            </div>
+            <div class="card-body">
+                @if (Session["HoTenKH"] != null)
+                {
+                    <p>Name: @Session["HoTenKH"].ToString()</p>
+                    <p>Email: @Session["Email"].ToString()</p>
+                    <a href="@Url.Action("Logout","NguoiDung")" class="btn btn-warning">Logout</a>
+                }
+            </div>
+        </div>
+
+    </div>
+</div>
+

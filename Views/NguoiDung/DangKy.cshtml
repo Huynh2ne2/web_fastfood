@@ -1,0 +1,98 @@
+﻿
+@{
+    ViewBag.Title = "DangKy";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/css/style_formnha.css" rel="stylesheet" type="text/css" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet" />
+<div class="content">
+    <div class="wrapper">
+        <div class="form-box login">
+            <h2>ĐĂNG KÝ THÀNH VIÊN</h2>
+            <form action="/NguoiDung/DangKy" method="post">
+                <div class="input-box">
+                    @Html.TextBox("HoTenKH")
+                    <div class="error" style="color: red; font-weight: 800;">
+                        @ViewData["loi1"]
+                    </div>
+                    <label>Họ & tên</label>
+                </div>
+                <div class="input-box">
+                    <span class="icon">
+                        <ion-icon name="person-circle-outline"></ion-icon>
+                    </span>
+                    @Html.TextBox("TenDN")
+                    <div class="error" style="color: red; font-weight: 800;">
+                        @ViewData["loi2"]
+                    </div>
+                    <label>Tên đăng nhập</label>
+                </div>
+                <div class="input-box">
+                    <span class="icon">
+                        <ion-icon name="lock-closed"></ion-icon>
+                    </span>
+                    @Html.Password("MatKhau")
+                    <div class="error" style="color: red; font-weight: 800;">
+                        @ViewData["loi3"]
+                    </div>
+                    <label>Mật Khẩu</label>
+                </div>
+                <div class="input-box">
+                    <span class="icon">
+                        <ion-icon></ion-icon>
+                    </span>
+                    @Html.Password("MatKhauNhapLai")
+                    <div class="error" style="color: red; font-weight: 800;">
+                        @ViewData["loi4"]
+                    </div>
+                    <label>Nhập lại mật khẩu</label>
+                </div>
+                <div class="input-box">
+                    <span class="icon">
+                        <ion-icon></ion-icon>
+                    </span>
+                    @Html.TextBox("DiaChi")
+                    <div class="error" style="color: red; font-weight: 800;">
+                        @ViewData["loi5"]
+                    </div>
+                    <label>Địa chỉ</label>
+                </div>
+                <div class="input-box">
+                    <span class="icon">
+                        <ion-icon name="mail"></ion-icon>
+                    </span>
+                    @Html.TextBox("Email")
+                    <div class="error" style="color: red; font-weight: 800;">
+                        @ViewData["loi6"]
+                    </div>
+                    <label>Email</label>
+                </div>
+                <div class="input-box">
+                    <span>
+                        <ion-icon name="call"></ion-icon>
+                    </span>
+                    @Html.TextBox("DienThoai")
+                    <div class="error" style="color: red; font-weight: 800;">
+                        @ViewData["loi7"]
+                    </div>
+                    <label>Điện thoại</label>
+                </div>
+                <div class="input-box">
+                    <input type="date" name="Ngaysinh" />
+                    <label>Ngày sinh</label>
+                </div>
+                <center>
+                    <button type="submit">Đăng Ký</button>
+                </center>
+                    
+            </form>
+            <div style="text-align:center;padding-top:5px;padding-bottom:5px; font-size: 24px;"><a href="@Url.Action("DangNhap","NguoiDung")"><i class="fa fa-user"> Đã có tài khoản? Hãy đăng nhập.</i></a></div>
+        </div>
+    </div>
+
+   
+</div>
+
+
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>

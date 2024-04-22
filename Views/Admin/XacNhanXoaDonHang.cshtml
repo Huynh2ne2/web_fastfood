@@ -1,0 +1,38 @@
+﻿@model DOANLTW.Models.DonDatHang
+@{
+    ViewBag.Title = "XacNhanXoaDonHang";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2>Xác nhận xóa đơn đặt hàng</h2>
+
+<p>Bạn đang chuẩn bị xóa đơn đặt hàng sau:</p>
+<p>Mã đơn hàng: @Model.MaDonHang</p>
+<p>Ngày đặt hàng: @Model.NgayDat</p>
+<!-- Thêm các thông tin khác của đơn đặt hàng cần thiết-->
+
+@if (ViewBag.ChiTietDatHangs != null && ViewBag.ChiTietDatHangs.Count > 0)
+{
+    <h3>Có các chi tiết đặt hàng sau đang liên quan đến đơn hàng này:</h3>
+    <ul>
+        @foreach (var chiTiet in ViewBag.ChiTietDatHangs)
+        {
+            <li>Mã đơn hàng: @chiTiet.MaDonHang</li>
+            <li>Mã món: @chiTiet.MaMon</li>
+            <li>Số lượng: @chiTiet.SoLuong</li>
+            <li>Đơn giá: @chiTiet.DonGia</li>
+        }
+    </ul>
+}
+else
+{
+    <p>Không có chi tiết đặt hàng liên quan đến đơn hàng này.</p>
+}
+
+@using (Html.BeginForm("XoaDDH", "Admin", new { id = Model.MaDonHang }, FormMethod.Post))
+{
+    <input type="submit" value="Xác nhận xóa" />
+    <a href="@Url.Action("DonDatHang", "Admin")">Hủy bỏ</a>
+}
+

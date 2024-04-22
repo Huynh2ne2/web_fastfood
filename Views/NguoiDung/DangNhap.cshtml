@@ -1,0 +1,49 @@
+﻿@{
+    ViewBag.Title = "DangNhap";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/css/style_formnha.css" rel="stylesheet" type="text/css" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet" />
+
+<div class="content">
+    <div class="wrapper">
+        <div class="form-box login">
+            <h2>ĐĂNG KÝ THÀNH VIÊN</h2>
+            <form action="/NguoiDung/DangNhap" method="post">
+                <div class="input-box">
+                    <span class="icon">
+                        <ion-icon name="person-circle-outline"></ion-icon>
+                    </span>
+                    @Html.TextBox("TenDN")
+                    <div class="error" style="color: red; font-weight: 800;">
+                        @ViewData["loi1"]
+                    </div>
+
+                    <label>Tên đăng nhập</label>
+                </div>
+                <div class="input-box">
+                    <span class="icon">
+                        <ion-icon name="lock-closed"></ion-icon>
+                    </span>
+                    @Html.Password("MatKhau")
+                    <div class="error" style="color: red; font-weight: 800;">
+                        @ViewData["loi2"]
+                    </div>
+                    <label>Mật Khẩu</label>
+                </div>
+                <center>
+                    <button type="submit">Đăng Nhập</button>
+                </center>
+            </form>
+            <div style="text-align:center;padding-top:5px;padding-bottom:5px"><a href="@Url.Action("DangKy","NguoiDung")"><i class="fa fa-user-plus"> Chưa có tài khoản? Hãy đăng ký.</i></a></div>
+            <h4 style="color:red; text-align:center; font-size:12px; font-weight:700; padding-top:5px;padding-bottom:5px">@ViewBag.Thongbao</h4>
+        </div>
+    </div>
+
+
+</div>
+
+
+
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>

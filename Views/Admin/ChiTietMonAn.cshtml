@@ -1,0 +1,37 @@
+﻿
+@model DOANLTW.Models.MonAn
+
+@{
+    ViewBag.Title = "Chi Tiết Món Ăn";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div style="background-color:#f4f4f4">
+    <h2 style="font-weight:bold; color:#1E90FF; padding:20px">Chi tiết món ăn</h2>
+    <div style="display:flex">
+        <div style="flex:1; padding:20px">
+            <img src="@Url.Content("~/Assets/Images/" + Model.AnhDD)" alt="Ảnh món ăn" style="width:100%">
+        </div>
+        <div style="flex:2; padding:20px">
+            <h4 style="font-weight:bold; color:#1E90FF; font-size: 24px;">Thông tin món ăn</h4>
+            <hr />
+            <dl style="padding:10px 0; ">
+                <dt style="color: #1E90FF; font-weight: bold;">Tên món:</dt>
+                <dd>@Html.DisplayFor(model => model.TenMon)</dd>
+            </dl>
+            <dl style="padding:10px 0; ">
+                <dt style="color: #1E90FF; font-weight: bold;">Đơn giá:</dt>
+                <dd>@String.Format("{0:0,0}", Model.GiaBan) VNĐ</dd>
+            </dl>
+            <dl style="padding:10px 0; color:#1E90FF;">
+                <dt style="color: #1E90FF; font-weight: bold;">Số lượng tồn:</dt>
+                <dd>@Html.DisplayFor(model => model.SoLuongTon)</dd>
+            </dl>
+        </div>
+    </div>
+</div>
+
+<div style="text-align:center; margin-top:20px;">
+    <a href="@Url.Action("MonAn", "Admin")" style="font-weight:bold; color:#1E90FF;"><i class="fa fa-arrow-left"></i> Trở lại</a>
+    <a href="@Url.Action("SuaMonAn", "Admin", new { id = Model.MaMon })" style="font-weight:bold; color:#1E90FF; margin-left:20px;"><i class="fa fa-edit"></i> Chỉnh sửa</a>
+</div>
